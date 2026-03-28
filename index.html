@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Health Survey</title>
+<title>Survey Form</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 
@@ -23,40 +23,35 @@ body {
 /* HEADER */
 .header {
   background: linear-gradient(135deg,#124734,#1ebe57);
-  padding: 24px 20px;
+  padding: 20px;
   color: white;
 }
 
 .header h1 {
   font-size: 20px;
   font-weight: 800;
-  margin-bottom: 5px;
 }
 
-.header p {
-  font-size: 13px;
-  opacity: 0.85;
-}
-
-/* BODY */
+/* FORM */
 .form {
-  padding: 20px;
+  padding: 18px;
 }
 
 label {
   font-weight: 700;
   font-size: 13px;
-  margin-top: 15px;
+  margin-top: 12px;
   display: block;
 }
 
+/* INPUTS SMALLER */
 input, select {
   width: 100%;
-  padding: 14px;
-  margin-top: 6px;
-  border-radius: 10px;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 8px;
   border: 2px solid #e2ece7;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
 }
 
@@ -68,28 +63,15 @@ input:focus, select:focus {
 /* BUTTON */
 button {
   width: 100%;
-  margin-top: 20px;
-  padding: 14px;
+  margin-top: 18px;
+  padding: 12px;
   border: none;
-  border-radius: 12px;
+  border-radius: 10px;
   background: linear-gradient(135deg,#25D366,#1ebe57);
   color: white;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 800;
   cursor: pointer;
-}
-
-/* PROGRESS */
-.progress {
-  height: 4px;
-  background: #e2ece7;
-}
-
-.bar {
-  height: 100%;
-  width: 0%;
-  background: #1ebe57;
-  transition: 0.3s;
 }
 </style>
 </head>
@@ -99,18 +81,21 @@ button {
 <div class="container">
 
 <div class="header">
-  <h1>Quick Health Check</h1>
-  <p>Find out if you are financially protected</p>
+  <h1>Survey Form</h1>
 </div>
-
-<div class="progress"><div class="bar" id="bar"></div></div>
 
 <div class="form">
 
 <form id="form">
 
 <label>WhatsApp Number *</label>
-<input type="text" name="whatsapp" required>
+<input 
+  type="tel" 
+  name="whatsapp" 
+  placeholder="e.g. 9876543210"
+  maxlength="10"
+  required
+>
 
 <label>1. Do you know about health insurance?</label>
 <select name="q1">
@@ -148,11 +133,8 @@ button {
   <option>Not sure</option>
 </select>
 
-<label>Best Time to Call</label>
-<input type="text" name="bestTime">
-
-<label>Your Name</label>
-<input type="text" name="name">
+<label>Name</label>
+<input type="text" name="name" placeholder="Optional">
 
 <button type="submit">Submit</button>
 
@@ -165,16 +147,21 @@ button {
 const scriptURL = "PASTE_YOUR_WEB_APP_URL";
 
 const form = document.getElementById("form");
-const bar = document.getElementById("bar");
 
-form.addEventListener("input", () => {
-  const filled = [...form.elements].filter(el => el.value).length;
-  const total = form.elements.length;
-  bar.style.width = (filled / total * 100) + "%";
+/* FORCE 10 DIGIT INPUT */
+document.querySelector("input[name='whatsapp']").addEventListener("input", function() {
+  this.value = this.value.replace(/\D/g, '').slice(0, 10);
 });
 
 form.addEventListener("submit", async function(e){
   e.preventDefault();
+
+  const whatsapp = form.whatsapp.value;
+
+  if (whatsapp.length !== 10) {
+    alert("Please enter a valid 10-digit WhatsApp number");
+    return;
+  }
 
   const data = Object.fromEntries(new FormData(this).entries());
 
@@ -183,9 +170,8 @@ form.addEventListener("submit", async function(e){
     body: JSON.stringify(data)
   });
 
-  alert("Submitted! We'll contact you soon.");
+  alert("Submitted successfully!");
   form.reset();
-  bar.style.width = "0%";
 });
 </script>
 
