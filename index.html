@@ -15,18 +15,21 @@ body {
   justify-content: center;
 }
 
-/* MAIN WRAPPER */
+/* MAIN CARD */
 .wrapper {
   width: 100%;
   max-width: 420px;
+  margin: 20px auto;
   background: #fff;
-  min-height: 100vh;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  overflow: hidden;
 }
 
 /* HEADER */
 .header {
   background: linear-gradient(135deg,#0f5132,#1ebe57);
-  padding: 18px;
+  padding: 16px;
   color: white;
 }
 
@@ -49,20 +52,26 @@ label {
   font-weight: 700;
 }
 
+/* INPUTS */
 input, select {
   width: 100%;
-  box-sizing: border-box;
-  padding: 12px;
+  padding: 11px;
   margin-top: 5px;
   border-radius: 10px;
   border: 2px solid #e4ece7;
   font-size: 14px;
 }
 
+/* FOCUS */
+input:focus, select:focus {
+  border-color: #1ebe57;
+  outline: none;
+}
+
 /* BUTTON */
 button {
   width: 100%;
-  padding: 14px;
+  padding: 13px;
   border-radius: 12px;
   border: none;
   background: linear-gradient(135deg,#25D366,#1ebe57);
@@ -76,11 +85,11 @@ button:disabled {
   opacity: 0.6;
 }
 
-/* SUCCESS SCREEN */
+/* SUCCESS */
 .success {
   display: none;
   text-align: center;
-  padding: 60px 20px;
+  padding: 50px 20px;
 }
 
 .success h2 {
@@ -90,6 +99,15 @@ button:disabled {
 .timer {
   margin-top: 10px;
   color: #666;
+}
+
+/* MOBILE FULL WIDTH */
+@media(max-width:480px){
+  .wrapper {
+    margin: 0;
+    border-radius: 0;
+    min-height: 100vh;
+  }
 }
 </style>
 </head>
@@ -163,8 +181,8 @@ button:disabled {
 </div>
 
 <div class="field">
-<label>Name</label>
-<input type="text" name="name" placeholder="Optional">
+<label>Name *</label>
+<input type="text" name="name" required placeholder="Enter your name">
 </div>
 
 <button id="submitBtn">Submit</button>
@@ -172,7 +190,7 @@ button:disabled {
 </form>
 </div>
 
-<!-- SUCCESS SCREEN -->
+<!-- SUCCESS -->
 <div class="success" id="successScreen">
   <h2>✅ Survey Completed</h2>
   <p>Thank you for your response!</p>
@@ -185,7 +203,7 @@ button:disabled {
 const scriptURL = "https://script.google.com/macros/s/AKfycbzGFjVqrEal2li1Br74XPVb6pP2EjABC0Fqg8kmQLa2lS2iStri4BONsfikQEVwX5DwjA/exec";
 const form = document.getElementById("form");
 
-/* BLOCK MULTIPLE SUBMISSIONS */
+/* SINGLE SUBMISSION */
 if (localStorage.getItem("submitted")) {
   document.getElementById("formSection").style.display = "none";
   document.getElementById("successScreen").style.display = "block";
@@ -201,6 +219,11 @@ document.getElementById("submitBtn").addEventListener("click", async (e) => {
 
   if (form.whatsapp.value.length !== 10) {
     alert("Enter valid 10-digit number");
+    return;
+  }
+
+  if (!form.checkValidity()) {
+    form.reportValidity();
     return;
   }
 
