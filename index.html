@@ -242,12 +242,17 @@ document.getElementById("submitBtn").addEventListener("click", (e) => {
 
   // ✅ WHATSAPP REDIRECT
   const message = encodeURIComponent(
-    `Hi, I just filled your survey. I want to redeem my free health insurance consultation.`
+    `Hi, I just filled out your survey. I want to redeem my free health insurance consultation.`
   );
 
   setTimeout(() => {
-    window.location.href = `https://wa.me/919911502502?text=${message}`;
-  }, 1500);
+
+  // ✅ CLEAR FLAG AFTER SUCCESS FLOW
+  sessionStorage.removeItem("submitted");
+
+  window.location.href = `https://wa.me/919911502502?text=${message}`;
+
+}, 1500);
 });
 </script>
 
