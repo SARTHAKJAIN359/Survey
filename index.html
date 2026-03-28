@@ -15,7 +15,6 @@ body {
   justify-content: center;
 }
 
-/* CARD */
 .wrapper {
   width: 100%;
   max-width: 420px;
@@ -26,7 +25,6 @@ body {
   overflow: hidden;
 }
 
-/* HEADER */
 .header {
   background: linear-gradient(135deg,#0f5132,#1ebe57);
   padding: 16px;
@@ -38,7 +36,6 @@ body {
   font-size: 18px;
 }
 
-/* FORM */
 .form {
   padding: 16px;
 }
@@ -52,7 +49,6 @@ label {
   font-weight: 700;
 }
 
-/* INPUT */
 input, select {
   width: 100%;
   padding: 11px;
@@ -62,7 +58,6 @@ input, select {
   font-size: 14px;
 }
 
-/* BUTTON */
 button {
   width: 100%;
   padding: 13px;
@@ -75,11 +70,6 @@ button {
   cursor: pointer;
 }
 
-button:disabled {
-  opacity: 0.6;
-}
-
-/* SUCCESS */
 .success {
   display: none;
   text-align: center;
@@ -88,20 +78,6 @@ button:disabled {
 
 .success h2 {
   color: #1ebe57;
-}
-
-.timer {
-  margin-top: 10px;
-  color: #666;
-}
-
-/* MOBILE FULL */
-@media(max-width:480px){
-  .wrapper {
-    margin: 0;
-    border-radius: 0;
-    min-height: 100vh;
-  }
 }
 </style>
 </head>
@@ -175,7 +151,7 @@ button:disabled {
 
 <div class="field">
 <label>Name *</label>
-<input type="text" name="name" required placeholder="Enter your name">
+<input type="text" name="name" required>
 </div>
 
 <button id="submitBtn">Submit</button>
@@ -183,11 +159,9 @@ button:disabled {
 </form>
 </div>
 
-<!-- SUCCESS -->
 <div class="success" id="successScreen">
   <h2>✅ Survey Completed</h2>
   <p>Thank you for your response!</p>
-  <div class="timer">Opening WhatsApp...</div>
 </div>
 
 </div>
@@ -196,25 +170,13 @@ button:disabled {
 const scriptURL = "https://script.google.com/macros/s/AKfycbxYWOHM1Eg6mcXW7sRYvuLwlQPRiCGzOCL5utBLciMhwz_Qs98VBpxXw5KzVR94tSmx-g/exec";
 const form = document.getElementById("form");
 
-/* 10 DIGIT ONLY */
+// 10 digit validation
 document.querySelector("input[name='whatsapp']").addEventListener("input", function() {
   this.value = this.value.replace(/\D/g, '').slice(0, 10);
 });
 
-document.getElementById("submitBtn").addEventListener("click", (e) => {
-  e.preventDefault();
-
-  if (form.whatsapp.value.length !== 10) {
-    alert("Enter valid 10-digit number");
-    return;
-  }
-
-  if (!form.checkValidity()) {
-    form.reportValidity();
-    return;
-  }
-
-  document.getElementById("submitBtn").addEventListener("click", (e) => {
+// SINGLE CLICK HANDLER (FIXED)
+document.getElementById("submitBtn").addEventListener("click", function(e) {
   e.preventDefault();
 
   if (form.whatsapp.value.length !== 10) {
@@ -232,7 +194,7 @@ document.getElementById("submitBtn").addEventListener("click", (e) => {
 
   const data = Object.fromEntries(new FormData(form).entries());
 
-  // 🔥 SEND DATA
+  // SEND DATA
   fetch(scriptURL, {
     method: "POST",
     mode: "no-cors",
@@ -242,13 +204,13 @@ document.getElementById("submitBtn").addEventListener("click", (e) => {
     body: JSON.stringify(data)
   }).catch(() => {});
 
-  // ✅ SHOW SUCCESS SCREEN
+  // SHOW SUCCESS
   document.getElementById("formSection").style.display = "none";
   document.getElementById("successScreen").style.display = "block";
 
-  // ✅ WHATSAPP REDIRECT
+  // WHATSAPP REDIRECT
   const message = encodeURIComponent(
-    `Hi, I just filled out your survey. I want to redeem my free health insurance consultation.`
+    "Hi, I just filled out your survey. I want to redeem my free health insurance consultation."
   );
 
   setTimeout(() => {
