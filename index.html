@@ -196,12 +196,6 @@ button:disabled {
 const scriptURL = "https://script.google.com/macros/s/AKfycbxYWOHM1Eg6mcXW7sRYvuLwlQPRiCGzOCL5utBLciMhwz_Qs98VBpxXw5KzVR94tSmx-g/exec";
 const form = document.getElementById("form");
 
-/* BLOCK MULTIPLE SUBMISSIONS */
-if (sessionStorage.getItem("submitted")) {
-  document.getElementById("formSection").style.display = "none";
-  document.getElementById("successScreen").style.display = "block";
-}
-
 /* 10 DIGIT ONLY */
 document.querySelector("input[name='whatsapp']").addEventListener("input", function() {
   this.value = this.value.replace(/\D/g, '').slice(0, 10);
@@ -220,12 +214,25 @@ document.getElementById("submitBtn").addEventListener("click", (e) => {
     return;
   }
 
+  document.getElementById("submitBtn").addEventListener("click", (e) => {
+  e.preventDefault();
+
+  if (form.whatsapp.value.length !== 10) {
+    alert("Enter valid 10-digit number");
+    return;
+  }
+
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
+
   const btn = document.getElementById("submitBtn");
   btn.disabled = true;
 
   const data = Object.fromEntries(new FormData(form).entries());
 
-  // 🔥 SEND DATA (FIXED)
+  // 🔥 SEND DATA
   fetch(scriptURL, {
     method: "POST",
     mode: "no-cors",
@@ -235,8 +242,7 @@ document.getElementById("submitBtn").addEventListener("click", (e) => {
     body: JSON.stringify(data)
   }).catch(() => {});
 
-  sessionStorage.setItem("submitted", "true");
-
+  // ✅ SHOW SUCCESS SCREEN
   document.getElementById("formSection").style.display = "none";
   document.getElementById("successScreen").style.display = "block";
 
@@ -246,13 +252,8 @@ document.getElementById("submitBtn").addEventListener("click", (e) => {
   );
 
   setTimeout(() => {
-
-  // ✅ CLEAR FLAG AFTER SUCCESS FLOW
-  sessionStorage.removeItem("submitted");
-
-  window.location.href = `https://wa.me/919911502502?text=${message}`;
-
-}, 1500);
+    window.location.href = `https://wa.me/919911502502?text=${message}`;
+  }, 1500);
 });
 </script>
 
