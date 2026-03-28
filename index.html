@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Survey Form</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -9,24 +9,14 @@
 <style>
 body {
   font-family: 'Nunito', sans-serif;
-  background: linear-gradient(135deg,#eef7f1,#e6f4ea);
   margin: 0;
-}
-
-/* MAIN CARD */
-.container {
-  max-width: 520px;
-  margin: 20px auto;
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
-  overflow: hidden;
+  background: #f4f7f5;
 }
 
 /* HEADER */
 .header {
   background: linear-gradient(135deg,#0f5132,#1ebe57);
-  padding: 22px;
+  padding: 20px 16px 18px;
   color: white;
 }
 
@@ -38,80 +28,79 @@ body {
 
 /* FORM */
 .form {
-  padding: 20px;
+  padding: 16px;
+}
+
+/* FIELD BLOCK */
+.field {
+  margin-bottom: 16px;
 }
 
 label {
   font-size: 13px;
   font-weight: 700;
-  margin-top: 14px;
+  margin-bottom: 6px;
   display: block;
   color: #2c3e50;
 }
 
-/* INPUTS FIXED */
+/* INPUTS */
 input, select {
   width: 100%;
-  box-sizing: border-box; /* FIX OVERFLOW */
-  padding: 12px;
-  margin-top: 6px;
-  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 14px;
+  border-radius: 12px;
   border: 2px solid #e4ece7;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
-  background: #f9fbfa;
-  transition: 0.2s;
+  background: #fff;
 }
 
-/* FOCUS EFFECT */
+/* FOCUS */
 input:focus, select:focus {
   border-color: #1ebe57;
-  background: #ffffff;
   outline: none;
-  box-shadow: 0 0 0 3px rgba(30,190,87,0.12);
+  box-shadow: 0 0 0 3px rgba(30,190,87,0.15);
 }
 
-/* DROPDOWN STYLE */
+/* SELECT STYLE */
 select {
   appearance: none;
   background-image: url("data:image/svg+xml;utf8,<svg fill='%23666' height='20' viewBox='0 0 24 24' width='20'><path d='M7 10l5 5 5-5z'/></svg>");
   background-repeat: no-repeat;
-  background-position: right 10px center;
+  background-position: right 12px center;
 }
 
-/* BUTTON */
+/* STICKY BUTTON */
+.sticky-btn {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #ffffff;
+  padding: 10px 16px;
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.08);
+}
+
 button {
   width: 100%;
-  margin-top: 20px;
-  padding: 14px;
+  padding: 16px;
   border: none;
-  border-radius: 12px;
+  border-radius: 14px;
   background: linear-gradient(135deg,#25D366,#1ebe57);
   color: white;
   font-size: 16px;
   font-weight: 800;
   cursor: pointer;
-  box-shadow: 0 6px 18px rgba(30,190,87,0.25);
-  transition: 0.2s;
 }
 
-button:hover {
-  transform: translateY(-1px);
-}
-
-/* MOBILE */
-@media(max-width:600px){
-  .container {
-    margin: 0;
-    border-radius: 0;
-  }
+/* SPACE FOR BUTTON */
+.bottom-space {
+  height: 80px;
 }
 </style>
 </head>
 
 <body>
-
-<div class="container">
 
 <div class="header">
   <h1>Survey Form</h1>
@@ -121,15 +110,12 @@ button:hover {
 
 <form id="form">
 
+<div class="field">
 <label>WhatsApp Number *</label>
-<input 
-  type="tel"
-  name="whatsapp"
-  placeholder="e.g. 9876543210"
-  maxlength="10"
-  required
->
+<input type="tel" name="whatsapp" placeholder="e.g. 9876543210" maxlength="10" required>
+</div>
 
+<div class="field">
 <label>1. Do you know about health insurance?</label>
 <select name="q1" required>
   <option value="" disabled selected>Select an option</option>
@@ -137,7 +123,9 @@ button:hover {
   <option>Somewhat</option>
   <option>Not sure</option>
 </select>
+</div>
 
+<div class="field">
 <label>2. Have you taken any insurance?</label>
 <select name="q2" required>
   <option value="" disabled selected>Select an option</option>
@@ -145,7 +133,9 @@ button:hover {
   <option>Had in past</option>
   <option>Never</option>
 </select>
+</div>
 
+<div class="field">
 <label>3. Any current medical condition?</label>
 <select name="q3" required>
   <option value="" disabled selected>Select an option</option>
@@ -153,7 +143,9 @@ button:hover {
   <option>Manageable</option>
   <option>Serious</option>
 </select>
+</div>
 
+<div class="field">
 <label>4. Expected medical cost?</label>
 <select name="q4" required>
   <option value="" disabled selected>Select an option</option>
@@ -161,7 +153,9 @@ button:hover {
   <option>₹5 Lakh</option>
   <option>Above ₹10 Lakh</option>
 </select>
+</div>
 
+<div class="field">
 <label>5. Best way to pay critical illness?</label>
 <select name="q5" required>
   <option value="" disabled selected>Select an option</option>
@@ -170,15 +164,22 @@ button:hover {
   <option>Friends/Relatives</option>
   <option>Not sure</option>
 </select>
+</div>
 
+<div class="field">
 <label>Name</label>
 <input type="text" name="name" placeholder="Optional">
+</div>
 
-<button type="submit">Submit</button>
+<div class="bottom-space"></div>
 
 </form>
 
 </div>
+
+<!-- STICKY BUTTON -->
+<div class="sticky-btn">
+  <button id="submitBtn">Submit</button>
 </div>
 
 <script>
@@ -186,20 +187,20 @@ const scriptURL = "https://script.google.com/macros/s/AKfycbzeR1CC3QcEPIvE8veAX9
 
 const form = document.getElementById("form");
 
-/* 10 DIGIT STRICT */
+/* 10 DIGIT LOCK */
 document.querySelector("input[name='whatsapp']").addEventListener("input", function() {
   this.value = this.value.replace(/\D/g, '').slice(0, 10);
 });
 
-form.addEventListener("submit", async function(e){
-  e.preventDefault();
+/* SUBMIT BUTTON */
+document.getElementById("submitBtn").addEventListener("click", async () => {
 
   if (form.whatsapp.value.length !== 10) {
     alert("Enter valid 10-digit number");
     return;
   }
 
-  const data = Object.fromEntries(new FormData(this).entries());
+  const data = Object.fromEntries(new FormData(form).entries());
 
   await fetch(scriptURL, {
     method: "POST",
