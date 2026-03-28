@@ -124,7 +124,7 @@ button:disabled {
 </div>
 
 <div class="field">
-<label>1. Do you know about health insurance?</label>
+<label>1. Do you know about health insurance? *</label>
 <select name="q1" required>
 <option value="" disabled selected>Select an option</option>
 <option>Good understanding</option>
@@ -134,7 +134,7 @@ button:disabled {
 </div>
 
 <div class="field">
-<label>2. Have you taken any insurance?</label>
+<label>2. Have you taken any insurance? *</label>
 <select name="q2" required>
 <option value="" disabled selected>Select an option</option>
 <option>Yes, currently</option>
@@ -144,17 +144,16 @@ button:disabled {
 </div>
 
 <div class="field">
-<label>3. Any current medical condition?</label>
+<label>3. Any current medical condition? *</label>
 <select name="q3" required>
 <option value="" disabled selected>Select an option</option>
 <option>None</option>
-<option>Manageable</option>
-<option>Serious</option>
+<option>Yes</option>
 </select>
 </div>
 
 <div class="field">
-<label>4. Expected medical cost?</label>
+<label>4. Expected medical cost? *</label>
 <select name="q4" required>
 <option value="" disabled selected>Select an option</option>
 <option>₹2 Lakh</option>
@@ -164,7 +163,7 @@ button:disabled {
 </div>
 
 <div class="field">
-<label>5. Best way to pay critical illness?</label>
+<label>5. Best way to pay critical illness? *</label>
 <select name="q5" required>
 <option value="" disabled selected>Select an option</option>
 <option>Out of pocket</option>
@@ -198,7 +197,7 @@ const scriptURL = "https://script.google.com/macros/s/AKfycbxYWOHM1Eg6mcXW7sRYvu
 const form = document.getElementById("form");
 
 /* BLOCK MULTIPLE SUBMISSIONS */
-if (localStorage.getItem("submitted")) {
+if (sessionStorage.getItem("submitted")) {
   document.getElementById("formSection").style.display = "none";
   document.getElementById("successScreen").style.display = "block";
 }
@@ -236,7 +235,7 @@ document.getElementById("submitBtn").addEventListener("click", (e) => {
     body: JSON.stringify(data)
   }).catch(() => {});
 
-  localStorage.setItem("submitted", "true");
+  sessionStorage.setItem("submitted", "true");
 
   document.getElementById("formSection").style.display = "none";
   document.getElementById("successScreen").style.display = "block";
