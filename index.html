@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Survey Form</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -10,20 +10,29 @@
 body {
   font-family: 'Nunito', sans-serif;
   margin: 0;
-  background: #f4f7f5;
+  background: #eef5f1;
+  display: flex;
+  justify-content: center;
+}
+
+/* MAIN WRAPPER */
+.wrapper {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  min-height: 100vh;
 }
 
 /* HEADER */
 .header {
   background: linear-gradient(135deg,#0f5132,#1ebe57);
-  padding: 20px 16px 18px;
+  padding: 18px;
   color: white;
 }
 
 .header h1 {
   margin: 0;
-  font-size: 20px;
-  font-weight: 800;
+  font-size: 18px;
 }
 
 /* FORM */
@@ -31,82 +40,69 @@ body {
   padding: 16px;
 }
 
-/* FIELD BLOCK */
 .field {
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 label {
   font-size: 13px;
   font-weight: 700;
-  margin-bottom: 6px;
-  display: block;
-  color: #2c3e50;
 }
 
-/* INPUTS */
 input, select {
   width: 100%;
   box-sizing: border-box;
-  padding: 14px;
-  border-radius: 12px;
+  padding: 12px;
+  margin-top: 5px;
+  border-radius: 10px;
   border: 2px solid #e4ece7;
-  font-size: 15px;
-  font-weight: 600;
-  background: #fff;
+  font-size: 14px;
 }
 
-/* FOCUS */
-input:focus, select:focus {
-  border-color: #1ebe57;
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(30,190,87,0.15);
-}
-
-/* SELECT STYLE */
-select {
-  appearance: none;
-  background-image: url("data:image/svg+xml;utf8,<svg fill='%23666' height='20' viewBox='0 0 24 24' width='20'><path d='M7 10l5 5 5-5z'/></svg>");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-}
-
-/* STICKY BUTTON */
-.sticky-btn {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background: #ffffff;
-  padding: 10px 16px;
-  box-shadow: 0 -4px 12px rgba(0,0,0,0.08);
-}
-
+/* BUTTON */
 button {
   width: 100%;
-  padding: 16px;
+  padding: 14px;
+  border-radius: 12px;
   border: none;
-  border-radius: 14px;
   background: linear-gradient(135deg,#25D366,#1ebe57);
   color: white;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 800;
   cursor: pointer;
 }
 
-/* SPACE FOR BUTTON */
-.bottom-space {
-  height: 80px;
+button:disabled {
+  opacity: 0.6;
+}
+
+/* SUCCESS SCREEN */
+.success {
+  display: none;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.success h2 {
+  color: #1ebe57;
+}
+
+.timer {
+  margin-top: 10px;
+  color: #666;
 }
 </style>
 </head>
 
 <body>
 
+<div class="wrapper">
+
 <div class="header">
   <h1>Survey Form</h1>
 </div>
 
-<div class="form">
+<div class="form" id="formSection">
 
 <form id="form">
 
@@ -118,51 +114,51 @@ button {
 <div class="field">
 <label>1. Do you know about health insurance?</label>
 <select name="q1" required>
-  <option value="" disabled selected>Select an option</option>
-  <option>Good understanding</option>
-  <option>Somewhat</option>
-  <option>Not sure</option>
+<option value="" disabled selected>Select an option</option>
+<option>Good understanding</option>
+<option>Somewhat</option>
+<option>Not sure</option>
 </select>
 </div>
 
 <div class="field">
 <label>2. Have you taken any insurance?</label>
 <select name="q2" required>
-  <option value="" disabled selected>Select an option</option>
-  <option>Yes, currently</option>
-  <option>Had in past</option>
-  <option>Never</option>
+<option value="" disabled selected>Select an option</option>
+<option>Yes, currently</option>
+<option>Had in past</option>
+<option>Never</option>
 </select>
 </div>
 
 <div class="field">
 <label>3. Any current medical condition?</label>
 <select name="q3" required>
-  <option value="" disabled selected>Select an option</option>
-  <option>None</option>
-  <option>Manageable</option>
-  <option>Serious</option>
+<option value="" disabled selected>Select an option</option>
+<option>None</option>
+<option>Manageable</option>
+<option>Serious</option>
 </select>
 </div>
 
 <div class="field">
 <label>4. Expected medical cost?</label>
 <select name="q4" required>
-  <option value="" disabled selected>Select an option</option>
-  <option>₹2 Lakh</option>
-  <option>₹5 Lakh</option>
-  <option>Above ₹10 Lakh</option>
+<option value="" disabled selected>Select an option</option>
+<option>₹2 Lakh</option>
+<option>₹5 Lakh</option>
+<option>Above ₹10 Lakh</option>
 </select>
 </div>
 
 <div class="field">
 <label>5. Best way to pay critical illness?</label>
 <select name="q5" required>
-  <option value="" disabled selected>Select an option</option>
-  <option>Out of pocket</option>
-  <option>Insurance</option>
-  <option>Friends/Relatives</option>
-  <option>Not sure</option>
+<option value="" disabled selected>Select an option</option>
+<option>Out of pocket</option>
+<option>Insurance</option>
+<option>Friends/Relatives</option>
+<option>Not sure</option>
 </select>
 </div>
 
@@ -171,44 +167,70 @@ button {
 <input type="text" name="name" placeholder="Optional">
 </div>
 
-<div class="bottom-space"></div>
+<button id="submitBtn">Submit</button>
 
 </form>
-
 </div>
 
-<!-- STICKY BUTTON -->
-<div class="sticky-btn">
-  <button id="submitBtn">Submit</button>
+<!-- SUCCESS SCREEN -->
+<div class="success" id="successScreen">
+  <h2>✅ Survey Completed</h2>
+  <p>Thank you for your response!</p>
+  <div class="timer">Redirecting in <span id="count">2</span> sec...</div>
+</div>
+
 </div>
 
 <script>
 const scriptURL = "https://script.google.com/macros/s/AKfycbzGFjVqrEal2li1Br74XPVb6pP2EjABC0Fqg8kmQLa2lS2iStri4BONsfikQEVwX5DwjA/exec";
-
 const form = document.getElementById("form");
+
+/* BLOCK MULTIPLE SUBMISSIONS */
+if (localStorage.getItem("submitted")) {
+  document.getElementById("formSection").style.display = "none";
+  document.getElementById("successScreen").style.display = "block";
+}
 
 /* 10 DIGIT LOCK */
 document.querySelector("input[name='whatsapp']").addEventListener("input", function() {
   this.value = this.value.replace(/\D/g, '').slice(0, 10);
 });
 
-/* SUBMIT BUTTON */
-document.getElementById("submitBtn").addEventListener("click", async () => {
+document.getElementById("submitBtn").addEventListener("click", async (e) => {
+  e.preventDefault();
 
   if (form.whatsapp.value.length !== 10) {
     alert("Enter valid 10-digit number");
     return;
   }
 
+  const btn = document.getElementById("submitBtn");
+  btn.disabled = true;
+
   const data = Object.fromEntries(new FormData(form).entries());
 
   await fetch(scriptURL, {
     method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data)
   });
 
-  alert("Submitted successfully!");
-  form.reset();
+  localStorage.setItem("submitted", "true");
+
+  document.getElementById("formSection").style.display = "none";
+  document.getElementById("successScreen").style.display = "block";
+
+  let time = 2;
+  const counter = document.getElementById("count");
+
+  const interval = setInterval(() => {
+    time--;
+    counter.innerText = time;
+    if (time === 0) {
+      clearInterval(interval);
+      window.location.href = "https://mangotreeinsurance.com/";
+    }
+  }, 1000);
 });
 </script>
 
