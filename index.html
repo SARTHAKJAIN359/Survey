@@ -15,11 +15,11 @@ body {
   justify-content: center;
 }
 
-/* MAIN CARD */
+/* CARD */
 .wrapper {
   width: 100%;
   max-width: 420px;
-  margin: 20px auto;
+  margin: 20px;
   background: #fff;
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.08);
@@ -52,7 +52,7 @@ label {
   font-weight: 700;
 }
 
-/* INPUTS */
+/* INPUT */
 input, select {
   width: 100%;
   padding: 11px;
@@ -60,12 +60,6 @@ input, select {
   border-radius: 10px;
   border: 2px solid #e4ece7;
   font-size: 14px;
-}
-
-/* FOCUS */
-input:focus, select:focus {
-  border-color: #1ebe57;
-  outline: none;
 }
 
 /* BUTTON */
@@ -101,7 +95,7 @@ button:disabled {
   color: #666;
 }
 
-/* MOBILE FULL WIDTH */
+/* MOBILE FULL */
 @media(max-width:480px){
   .wrapper {
     margin: 0;
@@ -194,27 +188,27 @@ button:disabled {
 <div class="success" id="successScreen">
   <h2>✅ Survey Completed</h2>
   <p>Thank you for your response!</p>
-  <div class="timer">Redirecting in <span id="count">2</span> sec...</div>
+  <div class="timer">Opening WhatsApp...</div>
 </div>
 
 </div>
 
 <script>
-const scriptURL = "https://script.google.com/macros/s/AKfycbzGFjVqrEal2li1Br74XPVb6pP2EjABC0Fqg8kmQLa2lS2iStri4BONsfikQEVwX5DwjA/exec";
+const scriptURL = "https://script.google.com/macros/s/AKfycbxYWOHM1Eg6mcXW7sRYvuLwlQPRiCGzOCL5utBLciMhwz_Qs98VBpxXw5KzVR94tSmx-g/exec";
 const form = document.getElementById("form");
 
-/* SINGLE SUBMISSION */
+/* BLOCK MULTIPLE SUBMISSIONS */
 if (localStorage.getItem("submitted")) {
   document.getElementById("formSection").style.display = "none";
   document.getElementById("successScreen").style.display = "block";
 }
 
-/* 10 DIGIT LOCK */
+/* 10 DIGIT ONLY */
 document.querySelector("input[name='whatsapp']").addEventListener("input", function() {
   this.value = this.value.replace(/\D/g, '').slice(0, 10);
 });
 
-document.getElementById("submitBtn").addEventListener("click", async (e) => {
+document.getElementById("submitBtn").addEventListener("click", (e) => {
   e.preventDefault();
 
   if (form.whatsapp.value.length !== 10) {
@@ -232,28 +226,29 @@ document.getElementById("submitBtn").addEventListener("click", async (e) => {
 
   const data = Object.fromEntries(new FormData(form).entries());
 
-  await fetch(scriptURL, {
+  // 🔥 SEND DATA (FIXED)
+  fetch(scriptURL, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/json"
+    },
     body: JSON.stringify(data)
-  });
+  }).catch(() => {});
 
   localStorage.setItem("submitted", "true");
 
   document.getElementById("formSection").style.display = "none";
   document.getElementById("successScreen").style.display = "block";
 
-  let time = 2;
-  const counter = document.getElementById("count");
+  // ✅ WHATSAPP REDIRECT
+  const message = encodeURIComponent(
+    `Hi, I just filled your survey. I want to redeem my free health insurance consultation.`
+  );
 
-  const interval = setInterval(() => {
-    time--;
-    counter.innerText = time;
-    if (time === 0) {
-      clearInterval(interval);
-      window.location.href = "https://mangotreeinsurance.com/";
-    }
-  }, 1000);
+  setTimeout(() => {
+    window.location.href = `https://wa.me/919911502502?text=${message}`;
+  }, 1500);
 });
 </script>
 
